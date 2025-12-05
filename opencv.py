@@ -19,15 +19,39 @@
 
 ############################################################################################################
 
+# import cv2
+# import numpy as np 
+
+# picture = cv2.imread("resim6.jpg")
+# #kesit = picture[1000:2500,1000:2500]
+# aynalanan_resim = cv2.copyMakeBorder(picture,100,100,100,100,cv2.BORDER_REFLECT)sa
+
+# cv2.imshow("kahve ve kek",aynalanan_resim)
+
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
+# print(aynalanan_resim.shape)
+
+#############################################################################################################
+
 import cv2
 import numpy as np 
 
-picture = cv2.imread("resim6.jpg")
-#kesit = picture[1000:2500,1000:2500]
-aynalanan_resim = cv2.copyMakeBorder(picture,100,100,100,100,cv2.BORDER_REFLECT)
+picture = cv2.imread("hababam.jpg")
 
-cv2.imshow("kahve ve kek",aynalanan_resim)
+halitat = picture[297:607,527:720]
+kemals = picture[534:734,540:611]
+#kemals = picture[]
+#cv2.imshow("hababam sinifi",halitat)
+#cv2.imshow("hababam sinifi",kemals)
+#cv2.imshow("hababam sinifi",tarıka)
+
+
+cv2.imshow("hababam sinifi",picture)
+
 
 cv2.waitKey(0)
 cv2.destroyAllWindows()
-print(aynalanan_resim.shape)
+print(picture.shape)
+
+print("dikey= 601,536 ,yatay=274,563")
