@@ -72,28 +72,62 @@
 #     cv.imwrite("habbam.png",img)
 
 #######################################################################################
+# import numpy as np
+# import cv2 as cv
+# import sys
+
+
+# #Burda videocapture nesnesi oluşturuyoruz.
+# cap = cv.VideoCapture(0)
+# if not cap.isOpened():
+#     print("Kamera açılamadı")
+#     sys.exit()
+# while True:
+#     #Kameradan frame'in başarıyla alınıp alınmadığını kontrol ediyoruz.
+#     ret, frame = cap.read()
+    
+#     # Framei almadıysak çıkış yapıyoruz döngüyü kırıyoruz.
+#     if not ret:
+#         print("Frame_e erişemedik Çıkış yapılıyor")
+#         break
+#     #Burda frame'i griye çeviriyoruz 
+#     gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
+#     # Framei imshow ile ekrana basıyoruz
+#     cv.imshow('frame', gray)
+#     if cv.waitKey(1) == ord('q'):
+#         break
+
+# # herşey olduktan sonra yakalanan frameleri serbest bırakıyoruz.
+# cap.release()
+# cv.destroyAllWindows()
+
+
+#########################################################################################
+
 import numpy as np
 import cv2 as cv
-
+ 
 cap = cv.VideoCapture(0)
-if not cap.isOpened():
-    print("Cannot open camera")
-    exit()
-while True:
-    # Capture frame-by-frame
+ 
+# Define the codec and create VideoWriter object
+fourcc = cv.VideoWriter_fourcc(*'XVID')
+out = cv.VideoWriter('output.avi', fourcc, 20.0, (640,  480))
+ 
+while cap.isOpened():
     ret, frame = cap.read()
-
-    # if frame is read correctly ret is True
     if not ret:
         print("Can't receive frame (stream end?). Exiting ...")
         break
-    # Our operations on the frame come here
-    gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
-    # Display the resulting frame
-    cv.imshow('frame', gray)
+    frame = cv.flip(frame, 0)
+ 
+    # write the flipped frame
+    out.write(frame)
+ 
+    cv.imshow('frame', frame)
     if cv.waitKey(1) == ord('q'):
         break
-
-# When everything done, release the capture
+ 
+# Release everything if job is finished
 cap.release()
+out.release()
 cv.destroyAllWindows()
