@@ -34,24 +34,66 @@
 
 #############################################################################################################
 
-import cv2
-import numpy as np 
+# import cv2
+# import numpy as np 
 
-picture = cv2.imread("hababam.jpg")
+# picture = cv2.imread("hababam.jpg")
 
-halitat = picture[297:607,527:720]
-kemals = picture[534:734,540:611]
-#kemals = picture[]
-#cv2.imshow("hababam sinifi",halitat)
-#cv2.imshow("hababam sinifi",kemals)
-#cv2.imshow("hababam sinifi",tarıka)
-
-
-cv2.imshow("hababam sinifi",picture)
+# halitat = picture[297:607,527:720]
+# kemals = picture[534:734,540:611]
+# #kemals = picture[]
+# #cv2.imshow("hababam sinifi",halitat)
+# #cv2.imshow("hababam sinifi",kemals)
+# #cv2.imshow("hababam sinifi",tarıka)
 
 
-cv2.waitKey(0)
-cv2.destroyAllWindows()
-print(picture.shape)
+# cv2.imshow("hababam sinifi",picture)
 
-print("dikey= 601,536 ,yatay=274,563")
+
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
+# print(picture.shape)
+
+# print("dikey= 601,536 ,yatay=274,563")
+
+#########################################################################################################
+
+# import cv2 as cv
+# import sys 
+
+# img = cv.imread(cv.samples.findFile("hababam.jpg"))
+
+# if img is None:
+#     sys.exit("resim bulunamadı")
+
+# cv.imshow("hababam sınıfı",img)
+# k = cv.waitKey(0)
+# if k == ord("s"):
+#     cv.imwrite("habbam.png",img)
+
+#######################################################################################
+import numpy as np
+import cv2 as cv
+
+cap = cv.VideoCapture(0)
+if not cap.isOpened():
+    print("Cannot open camera")
+    exit()
+while True:
+    # Capture frame-by-frame
+    ret, frame = cap.read()
+
+    # if frame is read correctly ret is True
+    if not ret:
+        print("Can't receive frame (stream end?). Exiting ...")
+        break
+    # Our operations on the frame come here
+    gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
+    # Display the resulting frame
+    cv.imshow('frame', gray)
+    if cv.waitKey(1) == ord('q'):
+        break
+
+# When everything done, release the capture
+cap.release()
+cv.destroyAllWindows()
