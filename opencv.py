@@ -133,10 +133,36 @@
 # cv.destroyAllWindows()
 
 #########################################################################
-import numpy as np 
-import cv2 as cv
+# Önce ostan şuan içinde olduğumuz dizini alacağız 
+import os
 
+# print(os.name)
 
-cap = cv.VideoCapture(0)
+# current_dir = os.getcwd()
+# print("Current directory:", current_dir)
 
-ret,frame = cv.read()
+# folder_name = "new_folder"
+# new_folder_name = "new_folder2"
+
+# # Klasör yoksa oluştur
+# if not os.path.exists(folder_name):
+#     os.mkdir(folder_name)
+#     print("Klasör oluşturuldu:", folder_name)
+
+# # Yeniden adlandır
+# if os.path.exists(folder_name):
+#     os.rename(folder_name, new_folder_name)
+#     print("Klasör yeniden adlandırıldı:", new_folder_name)
+# else:
+#     print("Klasör bulunamadı!")
+
+# # Yeni klasöre geç
+# os.chdir(os.path.join(current_dir, new_folder_name))
+# print("Yeni dizine geçildi:", os.getcwd())
+
+files = os.listdir()
+for f in files:
+    if f.endswith(".py"):
+        print(f) 
+
+print(os.path.exists("opencvlearn.py"))
