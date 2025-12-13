@@ -104,20 +104,54 @@
 # cv.destroyAllWindows()
 
 ########RESİM BOYUTLANDIRMA#####################################################################
+# import cv2 as cv
+
+# image = cv.imread("Lenna.png")
+
+# print("Lenna resmi boyutu:",image.shape)
+# cv.imshow("original",image)
+# #resized
+# image_resized = cv.resize(image,(800,800))
+# print(image_resized.shape)
+# cv.imshow("Resized image",image_resized)
+
+# #kırp
+# imgcroppe = image[:200,:200]
+# cv.imshow("kirpik resim",imgcroppe)
+
+
+# cv.waitKey(0)
+
+#######RESME ŞEKİL VE METİN EKLEME###################################################################
 import cv2 as cv
+import  numpy as np 
 
-image = cv.imread("Lenna.png",0)
+#resim oluştur 
+img= np.zeros((512,512,3),np.uint8)#siyah resim
 
-print("Lenna resmi boyutu:",image.shape)
-cv.imshow("original",image)
-#resized
-image_resized = cv.resize(image,(800,800))
-print(image_resized.shape)
-cv.imshow("Resized image",image_resized)
+print(img.shape)
+cv.imshow("siyah",img)
 
-#kırp
-imgcroppe = image[:200,:200]
-cv.imshow("kirpik resim",imgcroppe)
+#çizgi
+# resim,başlangıç noktası ,bitiş noktası ,renk ,kalınlık
+cv.line(img,(100,250),(512,512),(0,255,0),3)
+cv.imshow("resim",img)
 
 
+# dikdörtgen
+#resim, başlangıç, bitiş ,renk
+cv.rectangle(img,(0,0),(255,255),(255,0,0))
+cv.imshow("dikdortgen",img)
+
+#çember
+# resim ,merkez,uarıçağı,rengi
+cv.circle(img,(300,300),78,(0,0,255),cv.FILLED)
+cv.imshow("cember",img)
+
+
+#metin
+# resim,başlangıç noktası,font,kalınlığı,renk 
+cv.putText(img,"resim",(300,300),cv.FONT_HERSHEY_COMPLEX,1,(255,255,255 ))
+
+cv.imshow("metin",img)
 cv.waitKey(0)
