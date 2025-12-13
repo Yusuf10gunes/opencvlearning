@@ -76,30 +76,48 @@
 # cv.destroyAllWindows()
 
 #######KAMERA AÇMA VE VİDEO KAYDI########################################################
+# import cv2 as cv
+
+# #capture
+# cap = cv.VideoCapture(0)
+
+# wiidth = int(cap.get(cv.CAP_PROP_FRAME_WIDTH))
+# height = int(cap.get(cv.CAP_PROP_FRAME_HEIGHT))
+
+# print("height:",height,"width:",wiidth)
+
+# # Video kaydet
+# writer = cv.VideoWriter("video_kaydı.mp4",cv.VideoWriter_fourcc(*"DIVX"),20,(wiidth,height))
+
+# while True:
+#     ret,frame = cap.read()
+#     cv.imshow("Video",frame)
+
+#     #save
+#     writer.write(frame)
+
+#     if cv.waitKey(1) & 0xFF == ord("q"):
+#         break
+
+# cap.release()
+# writer.release()
+# cv.destroyAllWindows()
+
+########RESİM BOYUTLANDIRMA#####################################################################
 import cv2 as cv
 
-#capture
-cap = cv.VideoCapture(0)
+image = cv.imread("Lenna.png",0)
 
-wiidth = int(cap.get(cv.CAP_PROP_FRAME_WIDTH))
-height = int(cap.get(cv.CAP_PROP_FRAME_HEIGHT))
+print("Lenna resmi boyutu:",image.shape)
+cv.imshow("original",image)
+#resized
+image_resized = cv.resize(image,(800,800))
+print(image_resized.shape)
+cv.imshow("Resized image",image_resized)
 
-print("height:",height,"width:",wiidth)
+#kırp
+imgcroppe = image[:200,:200]
+cv.imshow("kirpik resim",imgcroppe)
 
-# Video kaydet
-writer = cv.VideoWriter("video_kaydı.mp4",cv.VideoWriter_fourcc(*"DIVX"),20,(wiidth,height))
 
-while True:
-    ret,frame = cap.read()
-    cv.imshow("Video",frame)
-
-    #save
-    writer.write(frame)
-
-    if cv.waitKey(1) & 0xFF == ord("q"):
-        break
-
-cap.release()
-writer.release()
-cv.destroyAllWindows()
-
+cv.waitKey(0)
