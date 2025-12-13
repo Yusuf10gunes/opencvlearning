@@ -45,32 +45,61 @@
 #     cv.destroyAllWindows()
 
 ###############################################################################################################
+# import cv2 as cv
+# import os
+# import time
+# import sys
+
+
+# video_name = "/home/leviberkowitz/python_yen/video folder/video.mp4"
+
+# # Video içe aktar : capture cap
+# cap = cv.VideoCapture(video_name)
+# if not cap.isOpened():
+#     print("video açılamadı ")
+#     sys.exit()
+# print("genişlik:",cap.get(3))
+# print("yükseklik:",cap.get(4))
+
+
+# while True:
+#     ret,frame = cap.read()
+#     if ret == True:
+#         time.sleep(0.01)#uyarı kullanmazsak çok hızlı akar
+#         cv.imshow("Video",frame)
+#     else:
+#         break
+
+#     if cv.waitKey(1) & 0xFF == ord("q"): 
+#         break
+# cap.release()
+# cv.destroyAllWindows()
+
+#######KAMERA AÇMA VE VİDEO KAYDI########################################################
 import cv2 as cv
-import os
-import time
-import sys
 
+#capture
+cap = cv.VideoCapture(0)
 
-video_name = "/home/leviberkowitz/python_yen/video folder/video.mp4"
+wiidth = int(cap.get(cv.CAP_PROP_FRAME_WIDTH))
+height = int(cap.get(cv.CAP_PROP_FRAME_HEIGHT))
 
-# Video içe aktar : capture cap
-cap = cv.VideoCapture(video_name)
-if not cap.isOpened():
-    print("video açılamadı ")
-    sys.exit()
-print("genişlik:",cap.get(3))
-print("yükseklik:",cap.get(4))
+print("height:",height,"width:",wiidth)
 
+# Video kaydet
+writer = cv.VideoWriter("video_kaydı.mp4",cv.VideoWriter_fourcc(*"DIVX"),20,(wiidth,height))
 
 while True:
     ret,frame = cap.read()
-    if ret == True:
-        time.sleep(0.01)#uyarı kullanmazsak çok hızlı akar
-        cv.imshow("Video",frame)
-    else:
+    cv.imshow("Video",frame)
+
+    #save
+    writer.write(frame)
+
+    if cv.waitKey(1) & 0xFF == ord("q"):
         break
 
-    if cv.waitKey(1) & 0xFF == ord("q"): 
-        break
 cap.release()
+writer.release()
 cv.destroyAllWindows()
+
