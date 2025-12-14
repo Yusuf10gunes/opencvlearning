@@ -158,17 +158,34 @@
 
 #######GÖRÜNTÜLERİN BİRLEŞTİRİLMESİ ##########################################
 
+# import cv2 as cv
+# import numpy as np 
+# img = cv.imread("Lenna.png")
+# cv.imshow("Lenna",img)
+
+# #Yatay 
+# hor = np.hstack((img,img))
+# cv.imshow("Yatay",hor)
+# #Dikey
+# ver = np.vstack((img,img))
+# cv.imshow("Dikey",ver)
+
+
+# cv.waitKey(0)
+
+####PERSPEKTİF AYARLAMA###########################################################
 import cv2 as cv
 import numpy as np 
-img = cv.imread("Lenna.png")
-cv.imshow("Lenna",img)
+#resmi içeri aktar
+img = cv.imread("kart.png")
+cv.imshow("orijinal",img)
+width = 300
+height = 400
+pts1 = np.float32([[230,1],[1,472],[540,150],[338,617]])
+pts2 = np.float32([[0,0],[0,height],[width,0],[width,height]])
 
-#Yatay 
-hor = np.hstack((img,img))
-cv.imshow("Yatay",hor)
-#Dikey
-ver = np.vstack((img,img))
-cv.imshow("Dikey",ver)
-
-
+matrix = cv.getPerspectiveTransform(pts1,pts2)
+print(matrix)
+img_out_put = cv.warpPerspective(img,matrix,(width,height))
+cv.imshow("donusturulmus",img_out_put)
 cv.waitKey(0)
