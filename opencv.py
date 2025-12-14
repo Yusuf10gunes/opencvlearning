@@ -123,35 +123,52 @@
 # cv.waitKey(0)
 
 #######RESME ŞEKİL VE METİN EKLEME###################################################################
+# import cv2 as cv
+# import  numpy as np 
+
+# #resim oluştur 
+# img= np.zeros((512,512,3),np.uint8)#siyah resim
+
+# print(img.shape)
+# cv.imshow("siyah",img)
+
+# #çizgi
+# # resim,başlangıç noktası ,bitiş noktası ,renk ,kalınlık
+# cv.line(img,(100,250),(512,512),(0,255,0),3)
+# cv.imshow("resim",img)
+
+
+# # dikdörtgen
+# #resim, başlangıç, bitiş ,renk
+# cv.rectangle(img,(0,0),(255,255),(255,0,0))
+# cv.imshow("dikdortgen",img)
+
+# #çember
+# # resim ,merkez,uarıçağı,rengi
+# cv.circle(img,(300,300),78,(0,0,255),cv.FILLED)
+# cv.imshow("cember",img)
+
+
+# #metin
+# # resim,başlangıç noktası,font,kalınlığı,renk 
+# cv.putText(img,"resim",(300,300),cv.FONT_HERSHEY_COMPLEX,1,(255,255,255 ))
+
+# cv.imshow("metin",img)
+# cv.waitKey(0)
+
+#######GÖRÜNTÜLERİN BİRLEŞTİRİLMESİ ##########################################
+
 import cv2 as cv
-import  numpy as np 
+import numpy as np 
+img = cv.imread("Lenna.png")
+cv.imshow("Lenna",img)
 
-#resim oluştur 
-img= np.zeros((512,512,3),np.uint8)#siyah resim
-
-print(img.shape)
-cv.imshow("siyah",img)
-
-#çizgi
-# resim,başlangıç noktası ,bitiş noktası ,renk ,kalınlık
-cv.line(img,(100,250),(512,512),(0,255,0),3)
-cv.imshow("resim",img)
+#Yatay 
+hor = np.hstack((img,img))
+cv.imshow("Yatay",hor)
+#Dikey
+ver = np.vstack((img,img))
+cv.imshow("Dikey",ver)
 
 
-# dikdörtgen
-#resim, başlangıç, bitiş ,renk
-cv.rectangle(img,(0,0),(255,255),(255,0,0))
-cv.imshow("dikdortgen",img)
-
-#çember
-# resim ,merkez,uarıçağı,rengi
-cv.circle(img,(300,300),78,(0,0,255),cv.FILLED)
-cv.imshow("cember",img)
-
-
-#metin
-# resim,başlangıç noktası,font,kalınlığı,renk 
-cv.putText(img,"resim",(300,300),cv.FONT_HERSHEY_COMPLEX,1,(255,255,255 ))
-
-cv.imshow("metin",img)
 cv.waitKey(0)
