@@ -174,18 +174,30 @@
 # cv.waitKey(0)
 
 ####PERSPEKTİF AYARLAMA###########################################################
-import cv2 as cv
-import numpy as np 
-#resmi içeri aktar
-img = cv.imread("kart.png")
-cv.imshow("orijinal",img)
-width = 300
-height = 400
-pts1 = np.float32([[230,1],[1,472],[540,150],[338,617]])
-pts2 = np.float32([[0,0],[0,height],[width,0],[width,height]])
+# import cv2 as cv
+# import numpy as np 
+# #resmi içeri aktar
+# img = cv.imread("kart.png")
+# cv.imshow("orijinal",img)
+# width = 400
+# height = 500
+# pts1 = np.float32([[230,1],[1,472],[540,150],[338,617]])
+# pts2 = np.float32([[0,0],[0,height],[width,0],[width,height]])
 
-matrix = cv.getPerspectiveTransform(pts1,pts2)
-print(matrix)
-img_out_put = cv.warpPerspective(img,matrix,(width,height))
-cv.imshow("donusturulmus",img_out_put)
-cv.waitKey(0)
+# matrix = cv.getPerspectiveTransform(pts1,pts2)
+# print(matrix)
+# img_out_put = cv.warpPerspective(img,matrix,(width,height))
+# cv.imshow("donusturulmus",img_out_put)
+# cv.waitKey(0)
+
+##################GÖRÜNTÜLERİ KARIŞTIRMAK##########################################################
+import cv2 as cv
+import matplotlib.pyplot as plt
+
+ 
+img1 = cv.imread("img1.JPG")
+img2 = cv.imread("img2.JPG")
+plt.figure()
+plt.imshow(img1)
+plt.show(img2)
+plt.show()
