@@ -192,12 +192,11 @@
 
 ##################GÖRÜNTÜLERİ KARIŞTIRMAK##########################################################
 import cv2 as cv
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt 
+import numpy as np 
 
  
 img1 = cv.imread("img1.JPG")
 img2 = cv.imread("img2.JPG")
 plt.figure()
 plt.imshow(img1)
-plt.show(img2)
-plt.show()
