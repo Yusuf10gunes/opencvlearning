@@ -230,24 +230,41 @@
 # plt.imshow(blended_picture)
 # plt.show()
 #############3 GÖRÜNTÜ EŞİKLEME################################################
+# import cv2 as cv
+# import matplotlib.pyplot as plt 
+
+# #resmi içeri aktar 
+# img = cv.imread("img1.jpg") 
+# img = cv.cvtColor(img,cv.COLOR_BGR2GRAY)
+# plt.figure() 
+# plt.imshow(img, cmap="gray")
+# plt.axis("off")
+
+# #eşikleme
+# _, thresh_img = cv.threshold(img,thresh=60,maxval=255,type=cv.THRESH_BINARY)
+# plt.figure()
+# plt.imshow(thresh_img,cmap="gray")
+# plt.axis("off")
+
+# thresh_img2 = cv.adaptiveThreshold(img,255,cv.ADAPTIVE_THRESH_MEAN_C,cv.THRESH_BINARY,11,8)
+# plt.figure()
+# plt.imshow(thresh_img2,cmap="gray")
+# plt.axis("off")
+# plt.show()
+
+#######BULANIKLAŞTIRMA##################################################################
 import cv2 as cv
 import matplotlib.pyplot as plt 
+import numpy as np 
+import warnings
+warnings.filterwarnings("ignore")
 
-#resmi içeri aktar 
-img = cv.imread("img1.jpg") 
-img = cv.cvtColor(img,cv.COLOR_BGR2GRAY)
-plt.figure() 
-plt.imshow(img, cmap="gray")
-plt.axis("off")
-
-#eşikleme
-_, thresh_img = cv.threshold(img,thresh=60,maxval=255,type=cv.THRESH_BINARY)
+# blurring (detayı azaltır ve gürültüyü engeller)
+img = cv.imread("nyc.jpg")
+img = cv.cvtColor(img,cv.COLOR_BGR2RGB)
 plt.figure()
-plt.imshow(thresh_img,cmap="gray")
-plt.axis("off")
+plt.imshow(img),plt.axis("off"),plt.title("orijinal"),plt.show()
 
-thresh_img2 = cv.adaptiveThreshold(img,255,cv.ADAPTIVE_THRESH_MEAN_C,cv.THRESH_BINARY,11,8)
-plt.figure()
-plt.imshow(thresh_img2,cmap="gray")
-plt.axis("off")
+# Ortalama bulanıklaştırma yöntemi
+
 plt.show()
