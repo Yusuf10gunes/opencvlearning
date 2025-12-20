@@ -263,8 +263,19 @@ warnings.filterwarnings("ignore")
 img = cv.imread("nyc.jpg")
 img = cv.cvtColor(img,cv.COLOR_BGR2RGB)
 plt.figure()
-plt.imshow(img),plt.axis("off"),plt.title("orijinal"),plt.show()
+plt.imshow(img),plt.axis("off"),plt.title("orijinal")
 
 # Ortalama bulanıklaştırma yöntemi
 
-plt.show()
+dst2 = cv.blur(img,ksize=(3,3))
+plt.figure(),plt.imshow(dst2),plt.axis("off"),plt.title("ortalama blur")
+
+# Gausian blur
+gb = cv.GaussianBlur(img,ksize=(3,3),sigmaX=7) 
+plt.figure(),plt.imshow(gb),plt.axis("off"),plt.title("gausian blur")
+
+#Medyan blur
+mb = cv.medianBlur(img,ksize=3)
+plt.figure(),plt.imshow(mb),plt.axis("off"),plt.title("median blur"),plt.show()
+
+
