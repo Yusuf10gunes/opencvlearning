@@ -1,5 +1,3 @@
-# print(os.name)
-
 # current_dir = os.getcwd()
 # print("Current directory:", current_dir)
 
@@ -259,23 +257,73 @@ import numpy as np
 import warnings
 warnings.filterwarnings("ignore")
 
-# blurring (detayı azaltır ve gürültüyü engeller)
+# # blurring (detayı azaltır ve gürültüyü engeller)
+# img = cv.imread("nyc.jpg")
+# img = cv.cvtColor(img,cv.COLOR_BGR2RGB)
+# plt.figure()
+# plt.imshow(img),plt.axis("off"),plt.title("orijinal")
+
+# # Ortalama bulanıklaştırma yöntemi
+
+# dst2 = cv.blur(img,ksize=(3,3))
+# plt.figure(),plt.imshow(dst2),plt.axis("off"),plt.title("ortalama blur")
+
+# # Gausian blur
+# gb = cv.GaussianBlur(img,ksize=(3,3),sigmaX=7) 
+# plt.figure(),plt.imshow(gb),plt.axis("off"),plt.title("gausian blur")
+
+# #Medyan blur
+# mb = cv.medianBlur(img,ksize=3)
+# plt.figure(),plt.imshow(mb),plt.axis("off"),plt.title("median blur"),plt.show()
+
+
+def gaussian_noise(image):
+    row , col, ch = image.shape
+    mean = 0
+    var = 0.05
+    sigma = var**0.5
+    gauss = np.random.normal(mean,sigma,(row,col,ch))
+    gauss = gauss.reshape(row,col,ch)
+    noisy = image + gauss
+    return noisy
+
+#içe aktar normalize et
 img = cv.imread("nyc.jpg")
-img = cv.cvtColor(img,cv.COLOR_BGR2RGB)
+img = cv.cvtColor(img,cv.COLOR_BGR2RGB)/255
 plt.figure()
-plt.imshow(img),plt.axis("off"),plt.title("orijinal")
+plt.imshow(img),plt.axis("off"),plt.title("orijinal"),plt.show()
+gaussian_noisy_image = gaussian_noise(img)
+plt.imshow(gaussian_noisy_image),plt.axis("off"),plt.title("gausiiian noise"),plt.show()
+# gauss blur
+gb2 = cv.GaussianBlur(gaussian_noisy_image,ksize=(3,3),sigmaX=7) 
+plt.figure(),plt.imshow(gb2),plt.axis("off"),plt.title("with gausian blur işlemi"),plt.show()
 
-# Ortalama bulanıklaştırma yöntemi
+def salt_pepper_noise(image):
+    row, col, ch = image.shape
+    s_vs_p = 0.5
+    amount = 0.004
+    noisy = np.copy(image)
 
-dst2 = cv.blur(img,ksize=(3,3))
-plt.figure(),plt.imshow(dst2),plt.axis("off"),plt.title("ortalama blur")
+    # SALT (beyaz)
+    num_salt = int(amount * row * col * s_vs_p)
+    coords = (
+        np.random.randint(0, row, num_salt),
+        np.random.randint(0, col, num_salt)
+    )
+    noisy[coords[0], coords[1], :] = 1
 
-# Gausian blur
-gb = cv.GaussianBlur(img,ksize=(3,3),sigmaX=7) 
-plt.figure(),plt.imshow(gb),plt.axis("off"),plt.title("gausian blur")
+    # PEPPER (siyah)
+    num_pepper = int(amount * row * col * (1 - s_vs_p))
+    coords = (
+        np.random.randint(0, row, num_pepper),
+        np.random.randint(0, col, num_pepper)
+    )
+    noisy[coords[0], coords[1], :] = 0
 
-#Medyan blur
-mb = cv.medianBlur(img,ksize=3)
-plt.figure(),plt.imshow(mb),plt.axis("off"),plt.title("median blur"),plt.show()
+    return noisy
 
-
+sp_image = salt_pepper_noise(img)
+plt.figure(),plt.imshow(gb2),plt.axis("off"),plt.title("SP image"),plt.show()
+sp_uint8 = (sp_image * 255).astype(np.float32)
+mb2 = cv.medianBlur(sp_uint8, ksize=3) 
+plt.figure(),plt.imshow(mb2),plt.axis("off"),plt.title("SP image mbulur"),plt.show()
