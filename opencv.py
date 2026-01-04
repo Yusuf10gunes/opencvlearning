@@ -277,53 +277,71 @@ warnings.filterwarnings("ignore")
 # plt.figure(),plt.imshow(mb),plt.axis("off"),plt.title("median blur"),plt.show()
 
 
-def gaussian_noise(image):
-    row , col, ch = image.shape
-    mean = 0
-    var = 0.05
-    sigma = var**0.5
-    gauss = np.random.normal(mean,sigma,(row,col,ch))
-    gauss = gauss.reshape(row,col,ch)
-    noisy = image + gauss
-    return noisy
+# def gaussian_noise(image):
+#     row , col, ch = image.shape
+#     mean = 0
+#     var = 0.05
+#     sigma = var**0.5
+#     gauss = np.random.normal(mean,sigma,(row,col,ch))
+#     gauss = gauss.reshape(row,col,ch)
+#     noisy = image + gauss
+#     return noisy
 
-#içe aktar normalize et
-img = cv.imread("nyc.jpg")
-img = cv.cvtColor(img,cv.COLOR_BGR2RGB)/255
-plt.figure()
-plt.imshow(img),plt.axis("off"),plt.title("orijinal"),plt.show()
-gaussian_noisy_image = gaussian_noise(img)
-plt.imshow(gaussian_noisy_image),plt.axis("off"),plt.title("gausiiian noise"),plt.show()
-# gauss blur
-gb2 = cv.GaussianBlur(gaussian_noisy_image,ksize=(3,3),sigmaX=7) 
-plt.figure(),plt.imshow(gb2),plt.axis("off"),plt.title("with gausian blur işlemi"),plt.show()
+# #içe aktar normalize et
+# img = cv.imread("nyc.jpg")
+# img = cv.cvtColor(img,cv.COLOR_BGR2RGB)/255
+# plt.figure()
+# plt.imshow(img),plt.axis("off"),plt.title("orijinal"),plt.show()
+# gaussian_noisy_image = gaussian_noise(img)
+# plt.imshow(gaussian_noisy_image),plt.axis("off"),plt.title("gausiiian noise"),plt.show()
+# # gauss blur
+# gb2 = cv.GaussianBlur(gaussian_noisy_image,ksize=(3,3),sigmaX=7) 
+# plt.figure(),plt.imshow(gb2),plt.axis("off"),plt.title("with gausian blur işlemi"),plt.show()
 
-def salt_pepper_noise(image):
-    row, col, ch = image.shape
-    s_vs_p = 0.5
-    amount = 0.004
-    noisy = np.copy(image)
+# def salt_pepper_noise(image):
+#     row,col,ch = image.shape
+#     s_vs_p = 0.5
+#     amount = 0.004
+#     noisy = np.copy(image)
 
-    # SALT (beyaz)
-    num_salt = int(amount * row * col * s_vs_p)
-    coords = (
-        np.random.randint(0, row, num_salt),
-        np.random.randint(0, col, num_salt)
-    )
-    noisy[coords[0], coords[1], :] = 1
+#     # salt beyaz
+#     num_salt = np.ceil(amount*image.size*s_vs_p)
+#     coords = [np.random.randint(0,i-1,int(num_salt))for i in image.shape]
+#     noisy[coords] = 1
 
-    # PEPPER (siyah)
-    num_pepper = int(amount * row * col * (1 - s_vs_p))
-    coords = (
-        np.random.randint(0, row, num_pepper),
-        np.random.randint(0, col, num_pepper)
-    )
-    noisy[coords[0], coords[1], :] = 0
+#     #pepper siyah
+#     num_pepper = np.ceil(amount*image.size*(1 - s_vs_p))
+#     coords = [np.random.randint(0,i-1,int(num_pepper))for i in image.shape]
+#     noisy[coords] = 0
+#     return noisy
 
-    return noisy
+# sp_image = salt_pepper_noise(img)
+# plt.figure(),plt.imshow(gb2),plt.axis("off"),plt.title("SP image"),plt.show()
+# sp_uint8 = (sp_image * 255).astype(np.float32)
+# mb2 = cv.medianBlur(sp_uint8, ksize=3) 
+# plt.figure(),plt.imshow(mb2),plt.axis("off"),plt.title("SP image mbulur"),plt.show()    
 
-sp_image = salt_pepper_noise(img)
-plt.figure(),plt.imshow(gb2),plt.axis("off"),plt.title("SP image"),plt.show()
-sp_uint8 = (sp_image * 255).astype(np.float32)
-mb2 = cv.medianBlur(sp_uint8, ksize=3) 
-plt.figure(),plt.imshow(mb2),plt.axis("off"),plt.title("SP image mbulur"),plt.show()
+######## MORFOLOJİK OPERASYONLAR########################################################
+import cv2 as cv
+import matplotlib.pyplot as plt
+import numpy as np
+
+img = cv.imread("datai_team.jpg",0) 
+plt.figure(),plt.imshow(img,cmap="gray"),plt.axis("off"),plt.title("original image")
+
+#erozyon
+kernel = np.ones((5,5),dtype = np.uint8)
+result = cv.erode(img,kernel, iterations = 1)
+plt.figure(),plt.imshow(result,cmap="gray"),plt.axis("off"),plt.title("erozyon")
+
+
+# genişleme dialation
+result2 = cv.dilate(img,kernel,iterations=1)
+plt.figure(),plt.imshow(result2,cmap="gray"),plt.axis("off"),plt.title("genisletilmis"),plt.show()
+
+# white noise
+white_noise = np.random.randint(0,2, size = img.shape[:2])
+white_noise = white_noise*255
+plt.figure(),plt.imshow(white_noise,cmap="gray",),plt.axis("off"),plt.title("Beyaz gürültü"),plt.show()
+noise_image = white_noise + img
+plt.figure(),plt.imshow(noise_image,cmap="gray",),plt.axis("off"),plt.title("Beyaz gürültü "),plt.show()
