@@ -345,3 +345,19 @@ white_noise = white_noise*255
 plt.figure(),plt.imshow(white_noise,cmap="gray",),plt.axis("off"),plt.title("Beyaz gürültü"),plt.show()
 noise_image = white_noise + img
 plt.figure(),plt.imshow(noise_image,cmap="gray",),plt.axis("off"),plt.title("Beyaz gürültü "),plt.show()
+ 
+
+# açılma 
+opening = cv.morphologyEx(noise_image.astype(np.float32),cv.MORPH_OPEN,kernel) 
+plt.figure(),plt.imshow(opening,cmap="gray",),plt.axis("off"),plt.title("Açılma"),plt.show()
+# black nose
+black_noise = np.random.randint(0,2, size = img.shape[:2])
+black_noise = black_noise*-255
+plt.figure(),plt.imshow(black_noise,cmap="gray",),plt.axis("off"),plt.title("black gürültü"),plt.show()
+black_noise_image = black_noise +img
+black_noise_image[black_noise_image <= -245] = 0
+plt.figure(),plt.imshow(black_noise,cmap="gray",),plt.axis("off"),plt.title("black gürültü"),plt.show()
+
+
+#kapatma 
+
